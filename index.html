@@ -69,7 +69,7 @@ function addImg(parent,n,cls=''){const im=document.createElement('img');im.src=s
 for(let i=0;i<10;i++){
  const sh=document.createElement('div');sh.className='sheet '+(i===0?'left':'right');sh.style.zIndex=String(10-i);
  const front=document.createElement('div');front.className='cover';addImg(front,i*2+1);sh.appendChild(front);
- const back=document.createElement('div');back.className='cover';addImg(back,i*2+2);sh.appendChild(back);
+ const back=document.createElement('div');back.className='cover back';addImg(back,i*2+2);sh.appendChild(back);
  book.appendChild(sh);sheets.push(sh);
 }
 const thumbs=document.getElementById('thumbs');
