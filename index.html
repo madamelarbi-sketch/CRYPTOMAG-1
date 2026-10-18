@@ -62,7 +62,7 @@ footer{text-align:center;padding:0 16px 24px;color:#52677b;font-size:.85rem}
 <footer>CryptoMag · Classe CHAMS · Lecture optimisée pour ordinateur, tablette et téléphone.</footer>
 <script>
 const total=20, book=document.getElementById('book');
-const src=n=>'pages/page-'+String(n).padStart(2,'0')+'.jpg';
+const src=n=>'page-'+String(n).padStart(2,'0')+'.jpg';
 let current=0;
 const sheets=[];
 function addImg(parent,n,cls=''){const im=document.createElement('img');im.src=src(n);im.alt='Page '+n;im.loading=n>4?'lazy':'eager';if(cls)im.className=cls;parent.appendChild(im);}
