@@ -4,93 +4,60 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CryptoMag — Journal de la classe CHAMS</title>
-<meta name="description" content="Découvrez CryptoMag, le journal de la classe CHAMS : cryptographie, sciences, mathématiques et projets des élèves.">
 <style>
-:root{--navy:#10294b;--cyan:#27b8cf;--pink:#e84c91;--paper:#fffdf8}
-*{box-sizing:border-box}
-body{margin:0;background:linear-gradient(135deg,#e9f8fc,#f7f1fb);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--navy)}
-header{text-align:center;padding:22px 16px 12px}
-h1{margin:0;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:850;letter-spacing:.02em}
-header p{margin:7px 0 0;color:#38536e}
-.viewer{max-width:1180px;margin:0 auto;padding:12px 16px 30px}
-.book-wrap{display:flex;align-items:center;justify-content:center;gap:12px;min-height:60vh}
-.book{position:relative;width:min(88vw,920px);aspect-ratio:1.414/1;perspective:2200px;filter:drop-shadow(0 18px 24px #19345126)}
-.sheet{position:absolute;top:0;width:50%;height:100%;transform-style:preserve-3d;transition:transform .75s cubic-bezier(.2,.7,.2,1);transform-origin:left center}
-.sheet.left{left:0;transform-origin:right center}
-.sheet.right{right:0}
-.sheet img{position:absolute;width:100%;height:100%;object-fit:contain;background:var(--paper);backface-visibility:hidden;border:1px solid #d8e1e8}
-.sheet .back{transform:rotateY(180deg)}
-.sheet.flipped{transform:rotateY(-180deg)}
-.sheet.left.flipped{transform:rotateY(180deg)}
-.cover{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#fffdf8;border:1px solid #d8e1e8;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.cover img{width:100%;height:100%;object-fit:contain}
-.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0}
-button{border:0;border-radius:999px;padding:11px 18px;background:var(--navy);color:white;font-weight:750;font-size:1rem;cursor:pointer;box-shadow:0 4px 10px #10294b20}
-button:hover{background:#1d4778}button:disabled{opacity:.35;cursor:not-allowed}
-.counter{min-width:100px;text-align:center;font-weight:750}
-.hint{text-align:center;color:#425a70;font-size:.92rem;margin:8px auto 0}
-.thumbnails{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 18px;justify-content:flex-start}
-.thumb{flex:0 0 72px;border:2px solid transparent;border-radius:7px;overflow:hidden;background:white;padding:0}
-.thumb img{display:block;width:100%;height:auto}
-.thumb.active{border-color:var(--pink)}
+:root{--navy:#10294b;--pink:#e84c91;--paper:#fffdf8}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#e9f8fc,#f7f1fb);font-family:system-ui,"Segoe UI",sans-serif;color:var(--navy)}
+header{text-align:center;padding:22px 16px 12px}h1{margin:0;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:850}header p{margin:7px 0;color:#38536e}
+.viewer{max-width:1180px;margin:auto;padding:12px 16px 30px}.book-wrap{display:flex;align-items:center;justify-content:center;gap:10px}
+.book{width:min(88vw,1000px);display:grid;grid-template-columns:1fr 1fr;gap:3px;filter:drop-shadow(0 18px 24px #19345126)}
+.page{display:flex;align-items:center;justify-content:center;min-width:0;aspect-ratio:0.707/1;background:var(--paper);border:1px solid #d8e1e8;overflow:hidden}
+.page img{display:block;width:100%;height:100%;object-fit:contain}.nav{flex-shrink:0;width:48px;height:48px;padding:0;font-size:1.3rem}
+.controls{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:16px 0}
+button{border:0;border-radius:999px;padding:11px 18px;background:var(--navy);color:white;font-weight:750;font-size:1rem;cursor:pointer;box-shadow:0 4px 10px #10294b20}button:hover{background:#1d4778}button:disabled{opacity:.35;cursor:not-allowed}
+.counter{min-width:110px;text-align:center;font-weight:750}.hint{text-align:center;color:#425a70;font-size:.92rem}
+.thumbnails{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 18px}.thumb{flex:0 0 72px;border:2px solid transparent;border-radius:7px;overflow:hidden;background:white;padding:0}.thumb img{display:block;width:100%;height:auto}.thumb.active{border-color:var(--pink)}
+.error{display:none;padding:12px;margin:12px auto;max-width:800px;background:#fff0f0;color:#8a1f1f;border:1px solid #e8b8b8;border-radius:8px;text-align:center}
 footer{text-align:center;padding:0 16px 24px;color:#52677b;font-size:.85rem}
-@media(max-width:650px){.book-wrap{min-height:36vh}.book{width:94vw}.controls{gap:8px}button{padding:10px 14px}.hint{font-size:.82rem}}
-@media(prefers-reduced-motion:reduce){.sheet{transition:none}}
+@media(max-width:650px){.viewer{padding:8px 6px 24px}.book-wrap{gap:5px}.book{width:calc(100vw - 64px);grid-template-columns:1fr;gap:6px}.page{aspect-ratio:0.707/1}.page:nth-child(2){display:none}.nav{width:28px;height:42px;border-radius:10px}.controls{gap:7px}button{padding:9px 12px;font-size:.9rem}.counter{min-width:95px;font-size:.9rem}}
 </style>
 </head>
 <body>
-<header>
-<h1>📚 CRYPTOMAG</h1>
-<p>Curieux aujourd’hui, scientifiques demain — Journal de la classe CHAMS · Octobre 2026</p>
-</header>
+<header><h1>📚 CRYPTOMAG</h1><p>Curieux aujourd’hui, scientifiques demain — Journal de la classe CHAMS · Octobre 2026</p></header>
 <main class="viewer">
 <div class="book-wrap">
-<button id="prev" aria-label="Page précédente">←</button>
-<div class="book" id="book" aria-label="Livret interactif à pages tournantes"></div>
-<button id="next" aria-label="Page suivante">→</button>
+<button class="nav" id="prev" aria-label="Page précédente">←</button>
+<div class="book" aria-label="Livret interactif">
+<div class="page"><img id="imgLeft" src="./page-01.jpg" alt="Page 1"></div>
+<div class="page"><img id="imgRight" src="./page-02.jpg" alt="Page 2"></div>
 </div>
-<div class="controls">
-<button id="first">⏮ Début</button>
-<button id="prev2">← Précédent</button>
-<span class="counter" id="counter" aria-live="polite">Pages 1–2 / 20</span>
-<button id="next2">Suivant →</button>
-<button id="last">Fin ⏭</button>
+<button class="nav" id="next" aria-label="Page suivante">→</button>
 </div>
-<p class="hint">Cliquez sur les bords du journal ou utilisez les flèches du clavier pour tourner les pages.</p>
+<div class="error" id="error">Une page ne se charge pas. Vérifiez que les fichiers page-01.jpg à page-20.jpg sont au même niveau que index.html dans GitHub.</div>
+<div class="controls"><button id="first">⏮ Début</button><button id="prev2">← Précédent</button><span class="counter" id="counter">Pages 1–2 / 20</span><button id="next2">Suivant →</button><button id="last">Fin ⏭</button></div>
+<p class="hint">Utilisez les flèches pour parcourir le journal ou cliquez sur une vignette pour accéder à une page.</p>
 <div class="thumbnails" id="thumbs" aria-label="Accès direct aux pages"></div>
 </main>
 <footer>CryptoMag · Classe CHAMS · Lecture optimisée pour ordinateur, tablette et téléphone.</footer>
 <script>
-const total=20, book=document.getElementById('book');
-const src=n=>'page-'+String(n).padStart(2,'0')+'.jpg';
-let current=0;
-const sheets=[];
-function addImg(parent,n,cls=''){const im=document.createElement('img');im.src=src(n);im.alt='Page '+n;im.loading=n>4?'lazy':'eager';if(cls)im.className=cls;parent.appendChild(im);}
-for(let i=0;i<10;i++){
- const sh=document.createElement('div');sh.className='sheet '+(i===0?'left':'right');sh.style.zIndex=String(10-i);
- const front=document.createElement('div');front.className='cover';addImg(front,i*2+1);sh.appendChild(front);
- const back=document.createElement('div');back.className='cover back';addImg(back,i*2+2);sh.appendChild(back);
- book.appendChild(sh);sheets.push(sh);
-}
-const thumbs=document.getElementById('thumbs');
-for(let i=1;i<=total;i++){const b=document.createElement('button');b.className='thumb';b.title='Aller à la page '+i;addImg(b,i);b.addEventListener('click',()=>goTo(i));thumbs.appendChild(b)}
-function render(){
- sheets.forEach((s,i)=>{s.classList.toggle('flipped',i<current/2);s.style.zIndex=String(i<current/2?i+1:10-i);});
- document.getElementById('counter').textContent=current===0?'Pages 1–2 / 20':current>=20?'Pages 19–20 / 20':`Pages ${current+1}–${Math.min(current+2,total)} / ${total}`;
- document.getElementById('prev').disabled=document.getElementById('prev2').disabled=current===0;
- document.getElementById('next').disabled=document.getElementById('next2').disabled=current>=20;
- [...thumbs.children].forEach((b,i)=>b.classList.toggle('active',i+1===Math.min(current+1,20)));
-}
-function next(){if(current<20){current=Math.min(20,current+2);render()}}
-function prev(){if(current>0){current=Math.max(0,current-2);render()}}
-function goTo(n){current=Math.max(0,Math.min(20,Math.floor((n-1)/2)*2));render()}
+const total=20;let current=1;
+const left=document.getElementById('imgLeft'),right=document.getElementById('imgRight'),counter=document.getElementById('counter'),thumbs=document.getElementById('thumbs'),error=document.getElementById('error');
+function imagePath(n){return './page-'+String(n).padStart(2,'0')+'.jpg';}
+function setImage(img,n){img.onerror=()=>{error.style.display='block';};img.onload=()=>{error.style.display='none';};img.src=imagePath(n);img.alt='Page '+n;}
+function render(){setImage(left,current);if(current<total){right.style.display='';setImage(right,current+1);}else{right.style.display='none';right.removeAttribute('src');}
+counter.textContent=current===total?'Page 20 / 20':`Pages ${current}–${Math.min(current+1,total)} / ${total}`;
+document.getElementById('prev').disabled=document.getElementById('prev2').disabled=current===1;
+document.getElementById('next').disabled=document.getElementById('next2').disabled=current>=total;
+[...thumbs.children].forEach((b,i)=>b.classList.toggle('active',i+1===current));}
+function next(){if(current<total){current=Math.min(total,current+2);render();}}
+function prev(){if(current>1){current=Math.max(1,current-2);render();}}
+function goTo(n){current=Math.max(1,Math.min(total,n));if(current%2===0)current--;render();}
+for(let n=1;n<=total;n++){const b=document.createElement('button');b.className='thumb';b.title='Aller à la page '+n;const im=document.createElement('img');im.src=imagePath(n);im.alt='Miniature page '+n;im.loading='lazy';im.onerror=()=>b.style.display='none';b.appendChild(im);b.addEventListener('click',()=>goTo(n));thumbs.appendChild(b);}
 ['next','next2'].forEach(id=>document.getElementById(id).addEventListener('click',next));
 ['prev','prev2'].forEach(id=>document.getElementById(id).addEventListener('click',prev));
-document.getElementById('first').addEventListener('click',()=>{current=0;render()});
-document.getElementById('last').addEventListener('click',()=>{current=20;render()});
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev()});
-book.addEventListener('click',e=>{const r=book.getBoundingClientRect();if(e.clientX>r.left+r.width/2)next();else prev()});
+document.getElementById('first').addEventListener('click',()=>{current=1;render();});
+document.getElementById('last').addEventListener('click',()=>{current=19;render();});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev();});
 render();
 </script>
-</body>
-</html>
+</body></html>
+
